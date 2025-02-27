@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Profile Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun active"></i>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fab fa-github"></i> GitHub Profile Explorer</h1>
+            <p class="subtitle">Discover detailed GitHub profiles and repositories</p>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="username" placeholder="Enter GitHub username"/>
+                <button id="search-btn" onClick="fetchProfile()">Explore</button>
+            </div>
+            <div class="popular-users">
+                <span>Popular: </span>
+                <a href="#" class="popular-user" data-username="facebook">facebook</a>
+                <a href="#" class="popular-user" data-username="google">google</a>
+                <a href="#" class="popular-user" data-username="microsoft">microsoft</a>
+            </div>
+        </div>
+
+        <div class="loading-spinner hidden">
+            <div class="spinner"></div>
+            <p>Fetching profile data...</p>
+        </div>
+
+        <div id="error-container" class="hidden"></div>
+
+        <div id="profile-container" class="hidden">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img id="avatar" src="" alt="Profile Picture"/>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="name"></h2>
+                        <p id="login"></p>
+                        <p id="bio"></p>
+                        <div class="profile-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="location"></span>
+                        </div>
+                        <div class="profile-joined">
+                            <i class="far fa-calendar-alt"></i>
+                            <span id="joined"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-stats">
+                    <div class="stat">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-count">
+                            <span id="followers"></span>
+                            <p>Followers</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-user-friends"></i>
+                        <div class="stat-count">
+                            <span id="following"></span>
+                            <p>Following</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-code-branch"></i>
+                        <div class="stat-count">
+                            <span id="repos"></span>
+                            <p>Repositories</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-star"></i>
+                        <div class="stat-count">
+                            <span id="gists"></span>
+                            <p>Gists</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <a id="profile-link" href="#" target="_blank" class="btn-primary">
+                        <i class="fab fa-github"></i> View Profile
+                    </a>
+                    <button id="fetch-repos" class="btn-secondary">
+                        <i class="fas fa-code-branch"></i> View Repositories
+                    </button>
+                </div>
+            </div>
+
+            <div id="repos-container" class="hidden">
+                <h3>Top Repositories</h3>
+                <div class="filter-sort">
+                    <div class="filter">
+                        <label for="language-filter">Filter by language:</label>
+                        <select id="language-filter">
+                            <option value="all">All Languages</option>
+                        </select>
+                    </div>
+                    <div class="sort">
+                        <label for="sort-option">Sort by:</label>
+                        <select id="sort-option">
+                            <option value="stars">Stars</option>
+                            <option value="forks">Forks</option>
+                            <option value="updated">Last Updated</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="repos-list" class="repos-grid"></div>
+                <div id="repos-pagination" class="pagination hidden">
+                    <button id="prev-page" class="btn-page" disabled><i class="fas fa-chevron-left"></i></button>
+                    <span id="page-info">Page 1</span>
+                    <button id="next-page" class="btn-page"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-searches hidden">
+            <h3>Recent Searches</h3>
+            <div id="recent-searches-list"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Powered by GitHub API • Created with <i class="fas fa-heart"></i> by You</p>
+        <p class="rate-limit">API Rate Limit: <span id="rate-limit"></span></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
